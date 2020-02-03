@@ -32,7 +32,40 @@ public class InterfazAPI {
     }
 
     @GetMapping("/Saldo")
-    public double pop(){
+    public double saldo(){
         return transaccionManager.getSaldo();
     }
+
+    @GetMapping("/TotalDebitos")
+    public double totalDebitos(){
+        return transaccionManager.getTotal_debito();
+    }
+
+    @GetMapping("/TotalCreditos")
+    public double totalCreditos(){
+        return transaccionManager.getTotal_credito();
+    }
+
+    @GetMapping("/PromedioDebito")
+    public double promedioDebito(){
+        return transaccionManager.getPromedio_debito();
+    }
+
+    @GetMapping("/MontoDebitoMayor")
+    public double debitoMayor(){
+        return transaccionManager.getDebitoMayor();
+    }
+
+    @GetMapping("/NumeroDeOperaciones")
+    public double numeroOperaciones(){
+        return transaccionManager.getNum_transacciones();
+    }
+
+    @GetMapping("/Arreglo")
+    public String arreglo(){
+        return transaccionManager.getArreglos();
+    }
+
+
+
 }

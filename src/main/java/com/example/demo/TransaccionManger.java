@@ -26,7 +26,6 @@ public class TransaccionManger {
         transacciones = temporalTransacciones;
     }
 
-
     public boolean createTransaccion(String tipo, double monto){
         if(num_transacciones >= transacciones.length - 5){
             this.resizeTransacciones(1.2);
@@ -40,23 +39,57 @@ public class TransaccionManger {
         }else{
             return false;
         }
-        transacciones[num_transacciones] = new Transaccion(tipo, monto, num_transacciones);
+        transacciones[num_transacciones] = new Transaccion(tipo, monto);
         return true;
     }
-
 
     public double getSaldo(){
         return total_credito - total_debito;
     }
-//    public String getMonto_Mayor(){
-//
-//    }
-    //ingresar 1 o mas debitos creditos con auto
-    //total de cada uno+promedio de debitos
-    //monto de debitos mas grande
-    //cuantas operaciones
-    //imprimir los arreglos
-    //eliminar creditos xyz y ejecutar cdefgh
+
+    public double getDebitoMayor(){
+        int i = 0;
+        double mayor = 0;
+        while(i < num_transacciones){
+            i++;
+            if(transacciones[i].getTipo().equals("debito")){
+
+                if(mayor < transacciones[i].getMonto()){
+                    mayor = transacciones[i].getMonto();
+                }
+            }
+        }
+    }
+
+    public double getPromedio_credito(){
+        return total_credito / transacciones_credito;
+    }
+    public double getPromedio_debito(){
+        return total_debito / transacciones_debito;
+    }
+    public String getArreglos(){
+        return transacciones.toString();
+    }
+    public void remove(String tipo, int numero){
+        int i = 0;
+        int x = 0;
+        while(x < num_transacciones){
+            x++;
+            if(transacciones[i].getTipo().equals(tipo)){
+                i++;
+                if(i == numero){
+                    delete(i);
+                }
+            }
+        }
+
+    }
+    public void delete(int i){
+        for (int j = i; j < num_transacciones-1; j++) {
+            transacciones[j] = transacciones[j + 1];
+        }
+    }
+
     public int getTransacciones_credito() {
         return transacciones_credito;
     }
