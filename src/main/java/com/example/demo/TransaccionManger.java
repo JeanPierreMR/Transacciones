@@ -1,5 +1,9 @@
 package com.example.demo;
 
+import com.google.gson.JsonObject;
+
+import java.util.Arrays;
+
 public class TransaccionManger {
     private int transacciones_credito;
     private int transacciones_debito;
@@ -40,6 +44,7 @@ public class TransaccionManger {
             return false;
         }
         transacciones[num_transacciones] = new Transaccion(tipo, monto);
+        num_transacciones++;
         return true;
     }
 
@@ -51,14 +56,15 @@ public class TransaccionManger {
         int i = 0;
         double mayor = 0;
         while(i < num_transacciones){
-            i++;
             if(transacciones[i].getTipo().equals("debito")){
 
                 if(mayor < transacciones[i].getMonto()){
                     mayor = transacciones[i].getMonto();
                 }
             }
+            i++;
         }
+        return mayor;
     }
 
     public double getPromedio_credito(){
@@ -68,20 +74,26 @@ public class TransaccionManger {
         return total_debito / transacciones_debito;
     }
     public String getArreglos(){
-        return transacciones.toString();
+
+        return Arrays.toString(transacciones);
     }
-    public void remove(String tipo, int numero){
+
+    public boolean remover(String tipo, JsonObject numeros){
         int i = 0;
         int x = 0;
         while(x < num_transacciones){
             x++;
+            //revisa si es del tipo requerido
             if(transacciones[i].getTipo().equals(tipo)){
                 i++;
-                if(i == numero){
+                //revisa si es el numero de operacion correcto
+                for(int y = 0; y<numeros.size(); y++)
+                if(i == numeros.getAsJsonArray("numeros").get(y).getAsInt()){
                     delete(i);
                 }
             }
         }
+        return true;
 
     }
     public void delete(int i){

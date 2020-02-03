@@ -56,9 +56,9 @@ public class InterfazAPI {
         return transaccionManager.getDebitoMayor();
     }
 
-    @GetMapping("/NumeroDeOperaciones")
+    @GetMapping("/NumeroDeOperacionesCredito")
     public double numeroOperaciones(){
-        return transaccionManager.getNum_transacciones();
+        return transaccionManager.getTransacciones_credito();
     }
 
     @GetMapping("/Arreglo")
@@ -66,6 +66,11 @@ public class InterfazAPI {
         return transaccionManager.getArreglos();
     }
 
-
+    @PostMapping("/removerCreditos")
+    public boolean removerCreditos(String data){
+        Gson g = new Gson();
+        JsonObject jsonData = g.fromJson(data, JsonObject.class);
+        return transaccionManager.remover("credito", jsonData);
+    }
 
 }
